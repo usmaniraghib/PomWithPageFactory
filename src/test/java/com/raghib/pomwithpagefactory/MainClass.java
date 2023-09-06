@@ -1,23 +1,26 @@
 package com.raghib.pomwithpagefactory;
 
+import java.time.Duration;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.raghib.selenium.BaseClass;
 
 /*
  * REFERENCE
 https://www.softwaretestinghelp.com/page-object-model-pom-with-pagefactory/
 */
-public class MainClass {
+public class MainClass extends BaseClass {
 
+	public static WebDriver driver;
+	public static String browserName = "chrome";
+	public static String browserVersion = "116";
+	
+	public static String url = "http://www.google.com";
+	
 	public static void main(String[] args) throws InterruptedException {
-		String url = "http://www.google.com";
-
-		WebDriverManager.chromedriver().setup();
-		WebDriver driver = new ChromeDriver();
+		// Chrome Browser
+		driver = BaseClass.getDriver(browserName, browserVersion);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		driver.manage().window().maximize();
-
 		driver.get(url);
 
 		// Creating object of GoogleHomePage and driver instance is passed as parameter to
@@ -31,8 +34,6 @@ public class MainClass {
 
 		// Quit browser
 		Thread.sleep(3000);
-		driver.quit();
-
+		BaseClass.quitDriver();
 	}
-
 }
